@@ -14,14 +14,26 @@ const intervalo$ = new Observable<number>((subscriber) => {
     subscriber.next(count);
   }, 1000);
 
+  setTimeout(() => {
+    subscriber.complete();
+  }, 2500);
+
   return () => {
     clearInterval(interval);
     console.log('Intérvalo destruido');
   };
 });
 
-const subscription = intervalo$.subscribe((num) => console.log('Num: ', num));
+const subscription1 = intervalo$.subscribe(observer);
+const subscription2 = intervalo$.subscribe(observer);
+const subscription3 = intervalo$.subscribe(observer);
+
+subscription1.add(subscription2);
+
 setTimeout(() => {
-  subscription.unsubscribe();
+  subscription1.unsubscribe();
+  // subscription2.unsubscribe();
+  // subscription3.unsubscribe();
+
   console.log('Completado timeout');
-}, 3000);
+}, 6000);
