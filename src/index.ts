@@ -1,10 +1,7 @@
+import { Observable, Observer } from 'rxjs';
 
-
-console.log('Hola Mundo!');
-
-
-
-
-
-
-
+const observer: Observer<any> = {
+  next: (value) => console.log('siguiente: ', value),
+  error: (error) => console.warn('error: ', error),
+  complete: () => console.info('Completado'),
+};
